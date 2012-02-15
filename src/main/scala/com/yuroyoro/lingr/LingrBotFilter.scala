@@ -7,7 +7,7 @@ import javax.servlet.{Filter,FilterChain, FilterConfig }
 import javax.servlet.{ServletRequest, ServletResponse}
 import javax.servlet.http.{HttpServletRequest, HttpServletResponse}
 import scala.io.{Source, Codec}
-import scala.util.parsing.json.JSON
+import scala.util.parsing.json.{JSON,JSONObject}
 import scala.util.control.Exception._
 
 class LingrBotFilter extends Filter {
@@ -34,7 +34,7 @@ class LingrBotFilter extends Filter {
     Option(body).filter{ _.trim.nonEmpty }.flatMap{ s =>
       allCatch.opt{ URLDecoder.decode(s, "utf-8") }
     }.foreach{ s =>
-      JSON.parse(s).foreach{ json => json.collect {
+      JSON.parseRaw(s).collect{case JSONObject(json) => json}.foreach{ _.collect{
         case ("events", xs) => {
           val messages = xs.asInstanceOf[List[List[(String, List[(String, String)])]]]
           messages.map{ _.head }.collect{

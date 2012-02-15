@@ -52,7 +52,7 @@ trait ImageFilter extends Filter {
 
   def getImage(in:InputStream):Array[Byte] = {
     val out = new ByteArrayOutputStream()
-    val buf  =  Array.make( 1024 , (-1 ).toByte )
+    val buf  =  Array.fill( 1024 )( (-1 ).toByte )
 
     def writeImage( len:Int ):Unit = {
       if( len > 0 ) {

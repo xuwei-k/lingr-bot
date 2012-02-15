@@ -70,7 +70,7 @@ trait FileProxy {
   def setLastModified(time:Long)  = self.setLastModified( time )
   def setReadOnly = self.setReadOnly
   def toURI = self.toURI
-  def toURL = self.toURL
+  def toURL = self.toURI.toURL
 }
 
 sealed abstract class Path( file:JFile ) extends PathSeq[Path] with FileProxy {
