@@ -1,4 +1,6 @@
 lib
+project/target
+project/project
 src/main/resources/accesstoken.properties
 src/main/resources/consumer.properties
 target
